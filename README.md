@@ -3,10 +3,10 @@
 - 4 players multiplayer ✅
 - No physics/collisions ✅
 - One of the players hosts ✅
-- A chat with an UI
+- A chat with an UI ✅
 # Requirements
 - Unity 6000.0.70f1 ✅
-- All UI must be TMP
+- All UI must be TMP ✅
 - Compiler - IL2CPP maximal level of stripping and optimization ✅
 	- Project Settings → Scripting backend: IL2CPP
 	- Project Settings → Additional Compiler Arguments:
@@ -16,5 +16,5 @@
 		- Texture Mipmap Stripping: true
 - New input system for movement ✅
 - Netcode for entities for cube movement ✅
-- RPC for chat
+- RPC for chat ✅
 - The cube is a ghost ✅

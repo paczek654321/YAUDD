@@ -5,21 +5,21 @@ using UnityEngine;
 [UpdateInGroup(typeof(GhostInputSystemGroup))]
 public partial class PlayerInputSystem : SystemBase
 {
-	private Controls _controls;
+	public Controls ControlsInstance {get; private set;}
 
 	protected override void OnCreate()
 	{
-		_controls = new Controls();
-		_controls.Enable();
+		ControlsInstance = new Controls();
+		ControlsInstance.Enable();
 	}
 
 	protected override void OnUpdate()
 	{
 		foreach(RefRW<PlayerInput> player in SystemAPI.Query<RefRW<PlayerInput>>().WithAll<GhostOwnerIsLocal>())
 		{
-			player.ValueRW.Move = _controls.Player.Move.ReadValue<Vector2>();
+			player.ValueRW.Move = ControlsInstance.Player.Move.ReadValue<Vector2>();
 		}
 	}
 
-	protected override void OnDestroy() { _controls.Disable(); }
+	protected override void OnDestroy() { ControlsInstance.Disable(); }
 }
