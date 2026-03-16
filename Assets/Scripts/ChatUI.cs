@@ -14,6 +14,8 @@ public class ChatUI : MonoBehaviour
 
 	public TMP_InputField InputField;
 
+	public TMP_Dropdown MessageTargetDropdown;
+
 	private PlayerInputSystem _playerInputSystem;
 
 	void Start()
@@ -41,7 +43,14 @@ public class ChatUI : MonoBehaviour
 	public void SendChatMessage(string message)
 	{
 		InputField.text = "";
-		ClientChatSystem.SendRpc(new ChatRPCCommand{Message = TunrcateString(message, FixedString512Bytes.UTF8MaxLengthInBytes)});
+		if (MessageTargetDropdown.value == 0)
+		{
+			ClientChatSystem.SendRpc(new ChatRPCCommand{Message = TunrcateString(message, FixedString512Bytes.UTF8MaxLengthInBytes)});
+		}
+		else
+		{
+			ClientChatSystem.SendRpc(new ChatRPCCommand{Message = TunrcateString(message, FixedString512Bytes.UTF8MaxLengthInBytes), Exclusive = true, Target = MessageTargetDropdown.value});
+		}
 	}
 
 	public void DisplayMessage(string message)

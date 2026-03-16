@@ -4,6 +4,7 @@
 - No physics/collisions ✅
 - One of the players hosts ✅
 - A chat with an UI ✅
+- Both private and public chat ✅
 # Requirements
 - Unity 6000.0.70f1 ✅
 - All UI must be TMP ✅
