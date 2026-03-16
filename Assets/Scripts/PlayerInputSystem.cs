@@ -17,7 +17,7 @@ public partial class PlayerInputSystem : SystemBase
 	{
 		foreach(RefRW<PlayerInput> player in SystemAPI.Query<RefRW<PlayerInput>>().WithAll<GhostOwnerIsLocal>())
 		{
-			player.ValueRW.move = _controls.Player.Move.ReadValue<Vector2>();
+			player.ValueRW.Move = _controls.Player.Move.ReadValue<Vector2>();
 		}
 	}
 

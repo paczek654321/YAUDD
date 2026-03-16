@@ -9,12 +9,12 @@ public class PrefabManagerAuthoring : MonoBehaviour
 	{
 		public override void Bake(PrefabManagerAuthoring authoring)
 		{
-			AddComponent(GetEntity(TransformUsageFlags.Dynamic), new PrefabManager{ player = GetEntity(authoring.player, TransformUsageFlags.Dynamic) });
+			AddComponent(GetEntity(TransformUsageFlags.Dynamic), new PrefabManager{ Player = GetEntity(authoring.player, TransformUsageFlags.Dynamic) });
 		}
 	}
 }
 
 public struct PrefabManager : IComponentData
 {
-	public Entity player;
+	public Entity Player;
 }

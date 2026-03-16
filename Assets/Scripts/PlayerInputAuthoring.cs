@@ -6,7 +6,7 @@ using UnityEngine;
 public struct PlayerInput : IInputComponentData
 {
 	public const float MoveSpeed = 5f;
-	public float2 move;
+	public float2 Move;
 }
 
 class PlayerInputAuthoring : MonoBehaviour

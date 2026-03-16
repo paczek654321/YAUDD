@@ -9,8 +9,8 @@ partial struct PlayerMovement : ISystem
     {
         foreach ( var (transform, player) in SystemAPI.Query<RefRW<LocalTransform>, RefRO<PlayerInput>>() )
 		{
-			transform.ValueRW.Position.x += player.ValueRO.move.x*PlayerInput.MoveSpeed*SystemAPI.Time.DeltaTime;
-			transform.ValueRW.Position.z += player.ValueRO.move.y*PlayerInput.MoveSpeed*SystemAPI.Time.DeltaTime;
+			transform.ValueRW.Position.x += player.ValueRO.Move.x*PlayerInput.MoveSpeed*SystemAPI.Time.DeltaTime;
+			transform.ValueRW.Position.z += player.ValueRO.Move.y*PlayerInput.MoveSpeed*SystemAPI.Time.DeltaTime;
 		}
     }
 }

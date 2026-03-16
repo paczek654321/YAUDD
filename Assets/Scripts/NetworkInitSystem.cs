@@ -36,12 +36,12 @@ public partial struct ServerInitSystem : ISystem
 			else
 			{
 				buffer.AddComponent<NetworkStreamInGame>(request.SourceConnection);
-				Entity player = buffer.Instantiate(prefabManager.player);
+				Entity player = buffer.Instantiate(prefabManager.Player);
 				buffer.AddComponent(player, new GhostOwner{ NetworkId = SystemAPI.GetComponent<NetworkId>(request.SourceConnection).Value });
 
 				buffer.AppendToBuffer(request.SourceConnection, new LinkedEntityGroup{Value = player});
-				buffer.DestroyEntity(entity);
 			}
+			buffer.DestroyEntity(entity);
 		}
 		buffer.Playback(state.EntityManager);
 		buffer.Dispose();
