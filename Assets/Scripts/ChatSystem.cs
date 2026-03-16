@@ -60,6 +60,11 @@ public partial struct ServerChatSystem : ISystem
 [WorldSystemFilter(WorldSystemFilterFlags.ClientSimulation)]
 public partial struct ClientChatSystem : ISystem
 {
+	public void OnCreate(ref SystemState state)
+	{
+		ChatUI.Instance?.gameObject.SetActive(true);
+	}
+
 	//Messages are mirrored back to the client by the server to simplify display and propagation logic - This is suboptimal but its also simple and works
 	public static void SendRpc<T>(T command) where T : unmanaged, IComponentData
 	{

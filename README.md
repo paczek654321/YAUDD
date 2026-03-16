@@ -1,4 +1,6 @@
 # Yet Another Unity DOTS Demo
+# Running
+- UIScene is the proper entrypoint for this project
 # Gameplay
 - 4 players multiplayer ✅
 - No physics/collisions ✅

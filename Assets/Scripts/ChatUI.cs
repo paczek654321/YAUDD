@@ -4,6 +4,7 @@ using Unity.Collections;
 using UnityEngine;
 using System.Text;
 using System;
+using Unity.VisualScripting;
 
 public class ChatUI : MonoBehaviour
 {
@@ -20,8 +21,17 @@ public class ChatUI : MonoBehaviour
 
 	void Start()
 	{
+		gameObject.SetActive(false);
+		DontDestroyOnLoad(gameObject);
 		Instance = this;
-		_playerInputSystem = ClientServerBootstrap.ClientWorld.GetExistingSystemManaged<PlayerInputSystem>();
+	}
+
+	void OnEnable()
+	{
+		if (ClientServerBootstrap.HasClientWorlds)
+		{
+			_playerInputSystem = ClientServerBootstrap.ClientWorld.GetExistingSystemManaged<PlayerInputSystem>();
+		}
 	}
 
 	public void OnChatSelected()

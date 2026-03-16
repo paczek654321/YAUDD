@@ -18,8 +18,7 @@ public class MainMenuUI : MonoBehaviour
 		GetSingletonRW<NetworkStreamDriver>(ClientServerBootstrap.ClientWorld.EntityManager).ValueRW
 			.Connect(ClientServerBootstrap.ClientWorld.EntityManager, NetworkEndpoint.LoopbackIpv4.WithPort(Port));
 
-		SceneManager.LoadScene("Main", LoadSceneMode.Single);
-		SceneManager.LoadSceneAsync("UI", LoadSceneMode.Additive);
+		SceneManager.LoadScene("Gameplay", LoadSceneMode.Single);
 	}
 
     public void Host()
