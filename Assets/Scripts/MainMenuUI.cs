@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Unity.Entities;
 using Unity.NetCode;
 using Unity.Networking.Transport;
@@ -14,23 +13,36 @@ public class MainMenuUI : MonoBehaviour
 		return manager.CreateEntityQuery(typeof(T)).GetSingletonRW<T>();
 	}
 
+	void SharedInit()
+	{
+		GetSingletonRW<NetworkStreamDriver>(ClientServerBootstrap.ClientWorld.EntityManager).ValueRW
+			.Connect(ClientServerBootstrap.ClientWorld.EntityManager, NetworkEndpoint.LoopbackIpv4.WithPort(Port));
+
+		SceneManager.LoadScene("Main", LoadSceneMode.Single);
+		SceneManager.LoadSceneAsync("UI", LoadSceneMode.Additive);
+	}
+
     public void Host()
 	{
 		World.DefaultGameObjectInjectionWorld.Dispose();
 
 		World serverWorld = ClientServerBootstrap.CreateServerWorld("ServerWorld");
-		World clientWorld = ClientServerBootstrap.CreateClientWorld("ClientWorld");
+		ClientServerBootstrap.CreateClientWorld("ClientWorld");
 
 		World.DefaultGameObjectInjectionWorld = serverWorld;
 
-		GetSingletonRW<NetworkStreamDriver>(serverWorld.EntityManager).ValueRW.Listen(NetworkEndpoint.AnyIpv4.WithPort(Port));
-		GetSingletonRW<NetworkStreamDriver>(ClientServerBootstrap.ClientWorld.EntityManager).ValueRW.Connect(clientWorld.EntityManager, NetworkEndpoint.LoopbackIpv4.WithPort(Port));
+		GetSingletonRW<NetworkStreamDriver>(serverWorld.EntityManager).ValueRW
+			.Listen(NetworkEndpoint.AnyIpv4.WithPort(Port));
 
-		SceneManager.LoadScene("Main", LoadSceneMode.Single);
-		SceneManager.LoadSceneAsync("UI", LoadSceneMode.Additive);
+		SharedInit();
 	}
 	public void Join()
 	{
-		
+		World.DefaultGameObjectInjectionWorld.Dispose();
+
+		World clientWorld = ClientServerBootstrap.CreateClientWorld("ClientWorld");
+		World.DefaultGameObjectInjectionWorld = clientWorld;
+
+		SharedInit();
 	}
 }

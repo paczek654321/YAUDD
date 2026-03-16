@@ -37,6 +37,9 @@ public partial struct ServerInitSystem : ISystem
 			{
 				buffer.AddComponent<NetworkStreamInGame>(request.SourceConnection);
 				Entity player = buffer.Instantiate(prefabManager.player);
+				buffer.AddComponent(player, new GhostOwner{ NetworkId = SystemAPI.GetComponent<NetworkId>(request.SourceConnection).Value });
+
+				buffer.AppendToBuffer(request.SourceConnection, new LinkedEntityGroup{Value = player});
 				buffer.DestroyEntity(entity);
 			}
 		}
@@ -61,8 +64,8 @@ public partial struct ClientInitSystem : ISystem
 	[Unity.Burst.BurstCompile]
 	public void OnUpdate(ref SystemState state)
 	{
-		EntityCommandBuffer buffer = new EntityCommandBuffer(Allocator.Temp);
-		foreach((NetworkId networkId, Entity entity) in SystemAPI.Query<NetworkId>().WithNone<NetworkStreamInGame>().WithEntityAccess())
+		EntityCommandBuffer buffer = new(Allocator.Temp);
+		foreach((NetworkId _, Entity entity) in SystemAPI.Query<NetworkId>().WithNone<NetworkStreamInGame>().WithEntityAccess())
 		{
 			buffer.AddComponent<NetworkStreamInGame>(entity);
 			SendRpc(buffer, new GoInGameRpcCommand());

@@ -1,8 +1,8 @@
 # Yet Another Unity DOTS Demo
 # Gameplay
-- 4 players multiplayer
+- 4 players multiplayer ✅
 - No physics/collisions ✅
-- P2P with a host
+- One of the players hosts ✅
 - A chat with an UI
 # Requirements
 - Unity 6000.0.70f1 ✅
@@ -15,6 +15,6 @@
 		- Optimize Mesh Data: true
 		- Texture Mipmap Stripping: true
 - New input system for movement ✅
-- Netcode for entities for cube movement
+- Netcode for entities for cube movement ✅
 - RPC for chat
-- The cube is a ghost
+- The cube is a ghost ✅

@@ -1,5 +1,8 @@
 using Unity.Entities;
+using Unity.NetCode;
+using UnityEngine;
 
+[UpdateInGroup(typeof(GhostInputSystemGroup))]
 public partial class PlayerInputSystem : SystemBase
 {
 	private Controls _controls;
@@ -12,9 +15,9 @@ public partial class PlayerInputSystem : SystemBase
 
 	protected override void OnUpdate()
 	{
-		foreach(RefRW<Player> player in SystemAPI.Query<RefRW<Player>>())//.WithAll<GhostOwnerIsLocal>())
+		foreach(RefRW<PlayerInput> player in SystemAPI.Query<RefRW<PlayerInput>>().WithAll<GhostOwnerIsLocal>())
 		{
-			player.ValueRW.move = _controls.Player.Move.ReadValue<UnityEngine.Vector2>();
+			player.ValueRW.move = _controls.Player.Move.ReadValue<Vector2>();
 		}
 	}
 
